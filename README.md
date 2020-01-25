@@ -94,30 +94,6 @@ function getAge(edad)
     }
 }
 ```
-### ※ Flags
-- Sí existen más de 2 variables y/o propiedades de tipo *boolean* deben ser en su lugar un *enum flag*, por ejemplo:
-
-Incorrecto | 
--------- | 
-
-```javascript
-let isUp    = false;
-let isDown  = false;
-let isRight = false;
-let isLeft  = true;
-```
-
-Correcto | 
--------- | 
-```javascript
-var Direction = 
-{
-    up:    1,
-    down:  2,
-    right: 4,
-    left:  8
-};
-```
 
 ### ※ Funciones flecha
 - Unicamente se deberá rodear la lista de parámetros con ```( )``` si existe mas de uno:
@@ -282,7 +258,7 @@ let FuncionA()
 
 - La responsabilidad de una función encamina al concepto de que tan "abierto/desacoplado" o "cerrado/acoplado" sea el codigo. Para "abrir/desacoplar" código, es importante identificar los recursos que se manejan, ya que estos son la entrada de las funciones que tienen responsabilidades tipo proceso.
 
-## **Bases de datos**
+## **※ Bases de datos**
 
 #### Relaciones
 - Una relación es una característica especial de Acceso que hace que podamos trabajar con varias tablas relacionadas a través de un campo en común.
@@ -313,7 +289,7 @@ let FuncionA()
 
 - Un archivo no deberá de sobrepasar las 300 líneas de código.
 
-## ※Distribución correcta de los archivos.
+## ※ Distribución correcta de los archivos.
 
 - Las funciones deben estar correctamente distribuidas en sus respectivos archivos, un ejemplo de una mala práctica sería tener la validación / encriptación de los datos del usuario en el mismo archivo en el que se recolectan dichos datos, lo correcto sería tener separados ambos modulos y así:
     
