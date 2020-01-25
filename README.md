@@ -1,7 +1,4 @@
-# **Coding Standard Jarabesoft.**
-
-## **Convenciones de nombramiento.**
-- Primero que nada, se debe tener en mente que **todo** el código deberá estar hecho en **inglés** sin excepción.
+# **Coding Standard Jarabesoft v1.0.0.**
 
 ### ※ Archivos
 - Los archivos deben ser nombrados con [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") seguido de su respectiva extensión, los nombres deben ser claros y descriptivos, por ejemplo:
@@ -9,11 +6,27 @@
 
     Correcto | Incorrecto
     ------------ | -------------
-    InventarioTienda.ts | InvT.ts
+    StoreInventory.ts | StrInv.ts
 
 ### ※ Variables
 - Las variables deben de tener nombres descriptivos teniendo una mayor prioridad la claridad del nombre que el tamaño del nombre.
 
+- Entre más uso tenga una variable, más descriptivo deberá ser su nombre, por ejemplo:
+    ```javascript
+    for (const item of myCollection) {
+        //do some stuff...
+    }
+    ```
+    Es aceptable puesto a que ``` item ``` unicamente existirá dentro del [Scope](https://es.wikipedia.org/wiki/%C3%81mbito_(programaci%C3%B3n)) del bucle.
+
+- Por lo que:
+
+    ```javascript
+        let usersInLocalDatabase = { 
+            /* .. */
+        }
+    ```
+    Es aceptable, puesto que es una variable que posiblemente será usada en más de un lugar.
 
 - Las variables de constantes deberán usar **SCREAMING_SNAKE_CASE** por ejemplo:
     ```javascript
@@ -24,13 +37,15 @@
     const SECONDS = 60;
     ```
 
+- Para el uso de variables ```boolean``` se recomiendan los sufijos *is* o *has*.
+
 - Se recomienda evitar a toda costa el uso de variables globales, en el caso de usar se debe utilizar el prefijo ```"global"``` seguido del nombre en notación [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") por ejemplo:
     ```javascript
-    var globalSomeGlobalMessage = "Hola mundo!";
+    var globalGreetMessage = "Hola mundo!";
 
     function ShowGlobalMessage()
     {
-        alert(globalSomeGlobalMessage);
+        alert(globalGreetMessage);
     }
     ```
 
@@ -68,7 +83,7 @@
 ```javascript
 function DoSomeImportantTask(isImportantValue)
 {
-    if(importantValue == true)
+    if(isImportantValue == true)
     {
         for(let step = 0; step < 5; step++)
         {
@@ -84,7 +99,7 @@ function DoSomeImportantTask(isImportantValue)
     - En el caso de apertura y cierre de *callbacks* ó *funciones flechas o funciones anónimas* se abrirá con una llave en la misma línea en la que se declara.
 
 ```javascript
-function getAge(edad)
+function GetAge(edad)
 {
     if(age >= 18)
     {
@@ -296,3 +311,7 @@ let FuncionA()
     - Se reutiliza código.
     - Es más fácil de leer.
     - Es más fácil de reparar.
+
+## ※ Commits.
+
+- Al igual que las convenciones de nombramiento antes mostradas, los commits deben de ser claros y explicitos respecto a los cambios que se hicieron (desarrollo de un feature nuevo, reparación de un bug, refactor de alguna sección, etc), para de esta manera detectar errores más rápido.
