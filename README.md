@@ -1,6 +1,7 @@
 # **Coding Standard Jarabesoft.**
 
 ## **Convenciones de nombramiento.**
+- Primero que nada, se debe tener en mente que **todo** el código deberá estar hecho en **inglés** sin excepción.
 
 ### ※ Archivos
 - Los archivos deben ser nombrados con [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") seguido de su respectiva extensión, los nombres deben ser claros y descriptivos, por ejemplo:
@@ -13,10 +14,6 @@
 ### ※ Variables
 - Las variables deben de tener nombres descriptivos teniendo una mayor prioridad la claridad del nombre que el tamaño del nombre.
 
-- Las variables miembro se usara ```"m_"``` seguido de notación [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") por ejemplo:
-    ```javascript
-    let m_someMemberData;
-    ```
 
 - Las variables de constantes deberán usar **SCREAMING_SNAKE_CASE** por ejemplo:
     ```javascript
@@ -27,22 +24,26 @@
     const SECONDS = 60;
     ```
 
-- Se recomienda evitar a toda costa el uso de variables globales, en el caso de usar se debe utilizar el prefijo ```"g"``` seguido del nombre en notación [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") por ejemplo:
+- Se recomienda evitar a toda costa el uso de variables globales, en el caso de usar se debe utilizar el prefijo ```"global"``` seguido del nombre en notación [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") por ejemplo:
     ```javascript
-    var gSomeGlobalMessage = "Hola mundo!";
+    var globalSomeGlobalMessage = "Hola mundo!";
 
     function ShowGlobalMessage()
     {
-        alert(gSomeGlobalMessage);
+        alert(globalSomeGlobalMessage);
     }
     ```
 
 ### ※ Funciones / Métodos
 - Las funciones o métodos deben de tener nombres descriptivos teniendo una mayor prioridad la claridad del nombre que el tamaño del nombre.
 
+- Los nombres de las funciones deben ser entendidas como acciones.
+
+- El nombre de una función debe entenderse como una acción.
+
 - Al declarar una función o método se utilizará notación [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case"): 
     ```javascript
-    function VeryImportantTask()
+    function DoVeryImportantTask()
     {
         //...
     }
@@ -57,12 +58,15 @@
     }
     ```
 
+### ※ Idioma
+- Todas las convenciones anteriormente mencionadas debes hacer uso del idioma **Inglés** sin ninguna excepción.
+
 ## **Formato de código.**
 ### ※ Identación
 - La identación del código debe de ser de 4 espacios, Visual Studio y Visual Studio Code por defecto tienen esta identación al tabular el texto, una correcta identacion de código dberia verse tal que:
 
 ```javascript
-function SomeImportantTask(isImportantValue)
+function DoSomeImportantTask(isImportantValue)
 {
     if(importantValue == true)
     {
@@ -80,12 +84,12 @@ function SomeImportantTask(isImportantValue)
     - En el caso de apertura y cierre de *callbacks* ó *funciones flechas o funciones anónimas* se abrirá con una llave en la misma línea en la que se declara.
 
 ```javascript
-function Persona(edad)
+function getAge(edad)
 {
-    if(edad >= 18)
+    if(age >= 18)
     {
-        setInterval(function Crecer(){
-            edad++;
+        setInterval(function Grow(){
+            age++;
         }, 1000)
     }
 }
@@ -132,11 +136,30 @@ Correcto |
 x => x + x;
 
 (x, y) => x + y;
-
-<T>(x: T, y: T) => x === y;
 ```
 
 ## **Principios de diseño**
+### ※ TDD (Test-driven development)
+[TDD ó desarrollo guiado por pruebas](https://es.wikipedia.org/wiki/Desarrollo_guiado_por_pruebas) es una técnica de desarrollo de software que se base en primero realizar pruebas y [*refactoring*](https://es.wikipedia.org/wiki/Refactorizaci%C3%B3n).
+
+![](https://robertonovacid.files.wordpress.com/2014/01/tdd_flow.gif?w=293&h=307)
+
+**Los pasos a seguir son:**
+- **Elegir un requisito ó requerimiento:** Se elige de una lista el requerimiento que se cree que nos dará mayor conocimiento del problema y que a la vez sea fácilmente implementable.
+
+- **Escribir una prueba:** Se comienza escribiendo una prueba para el requisito.
+
+- **Verificar que la prueba falla:** Si la prueba no falla es porque el requerimiento ya estaba implementado o porque la prueba es errónea.
+
+- **Escribir la implementación:** Escribir el código más sencillo que haga que la prueba funcione.
+
+- **Ejecutar las pruebas:** Verificar si todo el conjunto de pruebas funciona correctamente.
+
+- **Eliminación de duplicación:** El paso final es la refactorización, que se utilizara principalmente para eliminar código duplicado.
+
+- **Actualización de la lista de requisitos:** Se actualiza la lista de requisitos tachando el requisito implementado. Asimismo se agregan requisitos que se hayan visto como necesarios durante este ciclo y se agregan requerimientos de diseño.
+
+
 ### ※ Encapsulamiento y principios de responsabilidades
 #### Condicionales repetitivas y encapsulamiento lógico
 Se pueden llegar a presentar situaciones en donde se tengan condicionales condemaciadas expresiones lógicas y en la mayoría de los casos se requieren de reutilizar las mismas expresiones en otras condicionantes; la regla fundamental es la utilización de funciones anónimas y predicados:
@@ -149,11 +172,12 @@ boolean hasAudio = musicList.size > 0;
 boolean hasVideo = videoList.size > 0;
 boolean hasKaraokes = karaokeList.size > 0;
 
-let permisos = getConfiguracion();
+let configurations = getConfigurations();
 if(hasAudio | hasVideo | hasKaraoke)
-   mostrarDashboard();
-if((hasAudio | hasVideo | hasKaraoke) && permisos.isAudioEnabled)
-    mostrarTabDeMusica();
+   ShowDashBoards();
+   
+if((hasAudio | hasVideo | hasKaraoke) && configurations.isAudioEnabled)
+    ShowMusicTab();
 ```
 
 Lógica refactorizada | 
@@ -259,6 +283,15 @@ let FuncionA()
 - La responsabilidad de una función encamina al concepto de que tan "abierto/desacoplado" o "cerrado/acoplado" sea el codigo. Para "abrir/desacoplar" código, es importante identificar los recursos que se manejan, ya que estos son la entrada de las funciones que tienen responsabilidades tipo proceso.
 
 
-# *TO DO...*
+#### Extensión del código
+- El cuerpo de una funcion no deberá de sobrepasar las 20 líneas de código.
 
+- Un archivo no deberá de sobrepasar las 300 líneas de código.
 
+## ※Distribución correcta de los archivos.
+
+- Las funciones deben estar correctamente distribuidas en sus respectivos archivos, un ejemplo de una mala práctica sería tener la validación / encriptación de los datos del usuario en el mismo archivo en el que se recolectan dichos datos, lo correcto sería tener separados ambos modulos y así:
+    
+    - Se reutiliza código.
+    - Es más fácil de leer.
+    - Es más fácil de reparar.
