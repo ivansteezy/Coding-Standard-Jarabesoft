@@ -326,3 +326,4 @@ const FunctionD(inputValue,imageData)
 ## ※ Commits.
 
 - Al igual que las convenciones de nombramiento antes mostradas, los commits deben de ser claros y explicitos respecto a los cambios que se hicieron (desarrollo de un feature nuevo, reparación de un bug, refactor de alguna sección, etc), para de esta manera detectar errores más rápido.
+- No usar emojis
