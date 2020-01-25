@@ -153,41 +153,49 @@ x => x + x;
 
 ### ※ Encapsulamiento y principios de responsabilidades
 #### Condicionales repetitivas y encapsulamiento lógico
-Se pueden llegar a presentar situaciones en donde se tengan condicionales condemaciadas expresiones lógicas y en la mayoría de los casos se requieren de reutilizar las mismas expresiones en otras condicionantes; la regla fundamental es la utilización de funciones anónimas y predicados:
+Se pueden llegar a presentar situaciones en donde se tengan condicionales con demaciadas expresiones lógicas y en la mayoría de los casos se requieren de reutilizar las mismas expresiones en otras condicionantes; la regla fundamental es la utilización de funciones anónimas y predicados:
 
 Lógica no refactorizada | 
 -------- |
 
 ```javascript
-boolean hasAudio = musicList.size > 0;
-boolean hasVideo = videoList.size > 0;
-boolean hasKaraokes = karaokeList.size > 0;
+const RefreshUI()
+{
+    boolean hasAudio = musicList.size > 0;
+    boolean hasVideo = videoList.size > 0;
+    boolean hasKaraokes = karaokeList.size > 0;
 
-let configurations = getConfigurations();
-if(hasAudio | hasVideo | hasKaraoke)
-   ShowDashBoards();
-   
-if((hasAudio | hasVideo | hasKaraoke) && configurations.isAudioEnabled)
-    ShowMusicTab();
+    let configurations = getConfigurations();
+    if(hasAudio | hasVideo | hasKaraoke)
+        ShowDashBoards();
+
+    if((hasAudio | hasVideo | hasKaraoke) && configurations.isAudioEnabled)
+        ShowMusicTab();
+}
 ```
 
 Lógica refactorizada | 
 -------- |
 ```javascript
-//Predicados unuarios para logica generica
-let hasContentPredicate = list => { return list.size > 0; }
-boolean hasAudio = hasContentPredicate(musicList);
-boolean hasVideo = hasContentPredicate(videoList);
-boolean hasKaraokes = hasContentPredicate(karaokeslist);
+const RefreshUI()
+{
+    //Predicados unuarios para logica generica
+    let hasContentPredicate = list => { return list.size > 0; }
+    boolean hasAudio = hasContentPredicate(musicList);
+    boolean hasVideo = hasContentPredicate(videoList);
+    boolean hasKaraokes = hasContentPredicate(karaokeslist);
 
-//functores y lamdas/funciones anonimas para encapsular expreciones logicas
-let hasAnyMedia  = () => { return hasAudio | hasVideo | hasKaraoke; }
+    //functores y lamdas/funciones anonimas para encapsular expreciones logicas
+    let hasAnyMediaType  = () => { return hasAudio | hasVideo | hasKaraoke; }
+    
+    let configurations = getConfigurations();  
+      
+    if(hasAnyMediaType())
+       ShowDashBoards();
 
-if(hasAneMedia())
-   mostrarDashboard();
-
-if(hasAnyMedia() && permisos.isAudioEnabled)
-    mostrarTabDeMusica();
+    if(hasAnyMediaType() && configurations.isAudioEnabled)
+        ShowMusicTab();
+}
 ```
 
 #### Switch's Legibles:
@@ -196,78 +204,81 @@ if(hasAnyMedia() && permisos.isAudioEnabled)
 Incorrecto | 
 -------- | 
 ```javascript 
+...
 switch(value)
 {
-    value.A:
-        arreglo.forEach(e =>{
-            e.nombre = "e";
-            //...
-            elementList.add(e);
-        });
+    case 'AddUserCase':
+        let recentlyCreatedUser = {name,pass,email,rights};
+        recentlyCreatedUser.name = "example";
+        //... some magical stuff inbetwen
+        elementList.add(recentlyCreatedUser);
         break;
 
-    value.B:
-        nombreUsuario = getUsuario().nombre;
-        arreglo.forEach(e => {
-                if(e.nombre == nombreUsuario)
-                    elementList.remove(e);
-        });
+    case 'DeleteUser':
+        someArray.forEach(e =>{
+            if(e.name == selectedUser.name)
+                someArray.remove(e);
+            });
         break;         
 }
+...
 ```
 
 Correcto | 
 -------- | 
 ```javascript 
-let Agregar()
+...
+let AddUser(elementList)
 {
-    arreglo.forEach(e =>{
-        e.nombre= "e";
-        //...
-        elementList.add(e);
+    let recentlyCreatedUser = {name,pass,email,rights};
+    recentlyCreatedUser.name = "example";
+    //... some magical stuff inbetwen
+    elementList.add(recentlyCreatedUser);
+}
+
+let DeleteUser(someArray,userName)
+{
+    someArray.forEach(e =>{
+        if(e.name == userName)
+            someArray.remove(e);
     });
 }
 
-let Eliminar(nombre)
-{
-    arreglo.forEach(e =>{
-        if(e.nombre == nombreUsuario)
-            elementList.remove(e);
-    });
-}
-
+...
 switch(value)
 {
-    value.A:
-        Agregar();
+    case 'AddUser':
+        AddUser(elementList);
         break;
-    value.B:
-        Eliminar(getUsuario().nombre);
+    case 'DeleteUser':
+        DeleteUser(elementList,selectedUser.name);
         break;         
 }
+...
+//IMPORTANT NOTE: THIS CODE IS JUST AN EXAMPLE;VAR DECLARATIONS AND THE STRUCTURE OF THE GENERAL IDEA TO REPRESENT ARE UNDER THE HOOD;
 ```
 
 #### Responsabilidad de una función
-- Cuando una función empieza a tener demaciado código, empiezan a crecer su         número de responsabilidades, la solución es sencilla: tener en cuenta 2          responsabilidades y en base a estas responsabilidades dividir por pasos las acciones/tareas que hace la función.
+- Cuando una función empieza a tener gran cantidad de código,  su número de responsabilidades incrementa, la solución es sencilla: tener en cuenta 2 responsabilidades y en base a estas responsabilidades dividir por pasos las acciones/tareas que hace la función.
 
 #### Responsabilidades de ejecución
 - Esta es la que agrupa un segmento de funciones:
 
 ```javascript
-let Ejemplo()
+const Example()
 {
-    FuncionA();
-    FuncionB();
-    FuncionC(FuncionD());
+    FunctionA();
+    FunctionB();
+    FunctionC(FunctionD(),data.imageBuffer);
 }
 ```
 
 #### Responsabilidades de proceso
 - Esta es la que se encarga de elaborar una acción pertinente.
 ```javascript
-let FuncionA()
+const FunctionD(inputValue,imageData)
 {
-    //realiza un paso de la funcion ejemplo
+    //do some bussines logic
 }
 ```
 
