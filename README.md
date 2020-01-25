@@ -201,7 +201,7 @@ switch(value)
 
     case 'DeleteUser':
         someArray.forEach(e =>{
-            if(e.name == userName)
+            if(e.name == selectedUser.name)
                 someArray.remove(e);
             });
         break;         
@@ -236,7 +236,7 @@ switch(value)
         AddUser(elementList);
         break;
     case 'DeleteUser':
-        DeleteUser(elementList,getUsuario().nombre);
+        DeleteUser(elementList,selectedUser.name);
         break;         
 }
 ...
