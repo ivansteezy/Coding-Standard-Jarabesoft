@@ -282,6 +282,31 @@ let FuncionA()
 
 - La responsabilidad de una función encamina al concepto de que tan "abierto/desacoplado" o "cerrado/acoplado" sea el codigo. Para "abrir/desacoplar" código, es importante identificar los recursos que se manejan, ya que estos son la entrada de las funciones que tienen responsabilidades tipo proceso.
 
+## **Bases de datos**
+
+#### Relaciones
+- Una relación es una característica especial de Acceso que hace que podamos trabajar con varias tablas relacionadas a través de un campo en común.
+
+#### Relación de uno a uno:
+-Las relaciones de uno a uno no son las más habituales, y de hecho muchas veces se evitan, pero tenemos ejemplos típicos que se repiten en diferentes aplicaciones: por ejemplo, un proovedor tiene una cuenta.
+
+![Relacion uno a uno](https://loopback.io/pages/en/lb4/imgs/hasOne-relation-example.png)
+
+#### Relación de uno a muchos:
+-Una relación uno a muchos es utilizada cuando un modelo puede tener muchos otros modelos relacionados. Por ejemplo, una profesión puede tener un número indeterminado de usuarios asociados a ésta. Dentro del modelo Profession podemos decir que una profesión tiene muchos usuarios:
+
+![Relación de uno a muchos](https://loopback.io/pages/en/lb4/imgs/hasMany-relation-example.png)
+
+#### Relación de HasManyThrough :
+-En las relaciones HasManyThrough tenemos una relación a través de otra tabla, desde el modelo de Physician hacia el de Pacient. Estos dos modelos no se encuentran relacionados directamente entre sí, pero sin embargo sí que es posible llegar desde los cursos a los recursos, a través de la tabla de Appointment.
+
+![Relación de HasManyThrough](https://loopback.io/images/9830482.png)
+
+#### Relación de HasAndBelongsToMany :
+-En las relaciones HasAndBelongsToMany crea una relacion muchos a muchos directa con otro modelo sin necesidad de una tabla intermedia a comparacion de HasManyThrough . Por ejemplo, en una aplicacion con ensamble y partes, donde cada ensamble tiene muchas partes en varios ensambles.
+
+![Relación HasAndBelongsToMany](https://loopback.io/images/9830483.png)
+
 
 #### Extensión del código
 - El cuerpo de una funcion no deberá de sobrepasar las 20 líneas de código.
