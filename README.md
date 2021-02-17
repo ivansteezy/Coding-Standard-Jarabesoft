@@ -318,8 +318,9 @@ const FunctionD(inputValue,imageData)
 
     Correcto | Incorrecto
     ------------ | -------------
-    StoreProduct | StoreProducts
-    			    Storeproduct
+    StoreProduct | Storeproduct
+    Store        | Stores
+    			    
 
 - El modelo deberá contener sus respectivos ACL's para el control de acceso.
 
