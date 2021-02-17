@@ -1,12 +1,14 @@
 # **Coding Standard Jarabesoft v1.2.0.**
 
 ### ※ Archivos
-- Los archivos deben ser nombrados con [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") seguido de su respectiva extensión, los nombres deben ser claros y descriptivos, por ejemplo:
+- Los archivos generados manualmente deben ser nombrados con [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") seguido de su respectiva extensión, los nombres deben ser claros y descriptivos, por ejemplo:
 
 
     Correcto | Incorrecto
     ------------ | -------------
     StoreInventory.ts | StrInv.ts
+
+- En el caso de utilizar los frameworks del stack actual (Angular, Loopback y Ionic) los archivos generados deberán respetan el nombramiento default. 
 
 ### ※ Variables
 - Las variables deben de tener nombres descriptivos teniendo una mayor prioridad la claridad del nombre que el tamaño del nombre.
