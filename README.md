@@ -1,4 +1,4 @@
-# **Coding Standard Jarabesoft v1.0.0.**
+# **Coding Standard Jarabesoft v1.2.0.**
 
 ### ※ Archivos
 - Los archivos deben ser nombrados con [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") seguido de su respectiva extensión, los nombres deben ser claros y descriptivos, por ejemplo:
@@ -28,15 +28,6 @@
     ```
     Es aceptable, puesto que es una variable que posiblemente será usada en más de un lugar.
 
-- Las variables de constantes deberán usar **SCREAMING_SNAKE_CASE** por ejemplo:
-    ```javascript
-    const SOME_CONSTANT_VALUE = 500;
-    ```
-- En el caso de contar con una sola palabra, se puede omitir el ```"_"```: 
-    ```javascript
-    const SECONDS = 60;
-    ```
-
 - Para el uso de variables ```boolean``` se recomiendan los sufijos *is* o *has*.
 
 - Se recomienda evitar a toda costa el uso de variables globales, en el caso de usar se debe utilizar el prefijo ```"global"``` seguido del nombre en notación [*Pascal Case ó Upper Camel Case*]("https://es.wikipedia.org/wiki/Camel_case") por ejemplo:
@@ -49,10 +40,10 @@
     }
     ```
 
+#### Nombramiento
+
 ### ※ Funciones / Métodos
 - Las funciones o métodos deben de tener nombres descriptivos teniendo una mayor prioridad la claridad del nombre que el tamaño del nombre.
-
-- Los nombres de las funciones deben ser entendidas como acciones.
 
 - El nombre de una función debe entenderse como una acción.
 
@@ -64,7 +55,7 @@
     }
     ```
 
-- En el caso de que una funcion reciba argumentos, estos deberan usarse con notación [*Camel Case*]("https://es.wikipedia.org/wiki/Camel_case"), el mismo caso para las variables locales de una función, por ejemplo:
+- En el caso de que una función reciba argumentos, estos deberan usarse con notación [*Camel Case*]("https://es.wikipedia.org/wiki/Camel_case"), el mismo caso para las variables locales de una función, por ejemplo:
     ```javascript
     function GreetUser(userName)
     {
@@ -75,6 +66,7 @@
 
 ### ※ Idioma
 - Todas las convenciones anteriormente mencionadas debes hacer uso del idioma **Inglés** sin ninguna excepción.
+
 
 ## **Formato de código.**
 ### ※ Identación
@@ -111,7 +103,7 @@ function GetAge(edad)
 ```
 
 ### ※ Funciones flecha
-- Unicamente se deberá rodear la lista de parámetros con ```( )``` si existe mas de uno:
+- Unicamente se deberá rodear la lista de parámetros con ```( )``` si existe más de uno:
 
 Incorrecto | 
 -------- | 
@@ -128,8 +120,16 @@ x => x + x;
 
 (x, y) => x + y;
 ```
+#### Estilos
+- Para identificar una clase CSS esta deberá estar escrita en kebab-case, ejemplo: bg-dark, cursor-pointer, text-center.
+
+- Los identificadores HTML serán nombrados en PascalCase.
+
+- Los estilos se aplicarán únicamente mediante clases e identificadores, prohibiendo el uso del atributo "style" en los elementos HTML.
+
 
 ## **Principios de diseño**
+
 ### ※ TDD (Test-driven development)
 [TDD ó desarrollo guiado por pruebas](https://es.wikipedia.org/wiki/Desarrollo_guiado_por_pruebas) es una técnica de desarrollo de software que se base en primero realizar pruebas y [*refactoring*](https://es.wikipedia.org/wiki/Refactorizaci%C3%B3n).
 
@@ -152,6 +152,7 @@ x => x + x;
 
 
 ### ※ Encapsulamiento y principios de responsabilidades
+
 #### Condicionales repetitivas y encapsulamiento lógico
 Se pueden llegar a presentar situaciones en donde se tengan condicionales con demaciadas expresiones lógicas y en la mayoría de los casos se requieren de reutilizar las mismas expresiones en otras condicionantes; la regla fundamental es la utilización de funciones anónimas y predicados:
 
@@ -179,13 +180,13 @@ Lógica refactorizada |
 ```javascript
 const RefreshUI()
 {
-    //Predicados unuarios para logica generica
+    //Predicados usuarios para lógica generica
     let hasContentPredicate = list => { return list.size > 0; }
     boolean hasAudio = hasContentPredicate(musicList);
     boolean hasVideo = hasContentPredicate(videoList);
     boolean hasKaraokes = hasContentPredicate(karaokeslist);
 
-    //functores y lamdas/funciones anonimas para encapsular expreciones logicas
+    //functores y lamdas/funciones anónimas para encapsular expreciones lógicas
     let hasAnyMediaType  = () => { return hasAudio | hasVideo | hasKaraoke; }
     
     let configurations = getConfigurations();  
@@ -284,31 +285,71 @@ const FunctionD(inputValue,imageData)
 
 - La responsabilidad de una función encamina al concepto de que tan "abierto/desacoplado" o "cerrado/acoplado" sea el codigo. Para "abrir/desacoplar" código, es importante identificar los recursos que se manejan, ya que estos son la entrada de las funciones que tienen responsabilidades tipo proceso.
 
+
 ## **※ Bases de datos**
 
 #### Relaciones
 - Una relación es una característica especial de Acceso que hace que podamos trabajar con varias tablas relacionadas a través de un campo en común.
 
+- El nombre de la foreign key estará designado por "[propiedad] + Id", escrita en camelCase, ejemplo : storeId, storeProductId
+
 #### Relación de uno a uno:
--Las relaciones de uno a uno no son las más habituales, y de hecho muchas veces se evitan, pero tenemos ejemplos típicos que se repiten en diferentes aplicaciones: por ejemplo, un proovedor tiene una cuenta.
+- Las relaciones de uno a uno no son las más habituales, y de hecho muchas veces se evitan, pero tenemos ejemplos típicos que se repiten en diferentes aplicaciones: por ejemplo, un proovedor tiene una cuenta.
 
 ![Relacion uno a uno](https://loopback.io/pages/en/lb4/imgs/hasOne-relation-example.png)
 
 #### Relación de uno a muchos:
--Una relación uno a muchos es utilizada cuando un modelo puede tener muchos otros modelos relacionados. Por ejemplo, una profesión puede tener un número indeterminado de usuarios asociados a ésta. Dentro del modelo Profession podemos decir que una profesión tiene muchos usuarios:
+- Una relación uno a muchos es utilizada cuando un modelo puede tener muchos otros modelos relacionados. Por ejemplo, una profesión puede tener un número indeterminado de usuarios asociados a ésta. Dentro del modelo Profession podemos decir que una profesión tiene muchos usuarios:
 
 ![Relación de uno a muchos](https://loopback.io/pages/en/lb4/imgs/hasMany-relation-example.png)
 
 #### Relación de HasManyThrough :
--En las relaciones HasManyThrough tenemos una relación a través de otra tabla, desde el modelo de Physician hacia el de Pacient. Estos dos modelos no se encuentran relacionados directamente entre sí, pero sin embargo sí que es posible llegar desde los cursos a los recursos, a través de la tabla de Appointment.
+- En las relaciones HasManyThrough tenemos una relación a través de otra tabla, desde el modelo de Physician hacia el de Pacient. Estos dos modelos no se encuentran relacionados directamente entre sí, pero sin embargo sí que es posible llegar desde los cursos a los recursos, a través de la tabla de Appointment.
 
 ![Relación de HasManyThrough](https://loopback.io/images/9830482.png)
 
 #### Relación de HasAndBelongsToMany :
--En las relaciones HasAndBelongsToMany crea una relacion muchos a muchos directa con otro modelo sin necesidad de una tabla intermedia a comparacion de HasManyThrough . Por ejemplo, en una aplicacion con ensamble y partes, donde cada ensamble tiene muchas partes en varios ensambles.
+- En las relaciones HasAndBelongsToMany crea una relacion muchos a muchos directa con otro modelo sin necesidad de una tabla intermedia a comparacion de HasManyThrough . Por ejemplo, en una aplicacion con ensamble y partes, donde cada ensamble tiene muchas partes en varios ensambles.
 
 ![Relación HasAndBelongsToMany](https://loopback.io/images/9830483.png)
 
+#### Modelos :
+- El nombré del modelo deberá estar escrito en singular y en PascalCase,
+
+    Correcto | Incorrecto
+    ------------ | -------------
+    StoreProduct | StoreProducts
+    			    Storeproduct
+
+- El modelo deberá contener sus respectivos ACL's para el control de acceso.
+
+#### API Path - Principios REST
+
+- Utilizar los principios REST para manejar acciones CRUD usando métodos HTTP de la siguiente forma:	
+
+	- GET /products- Devuelve una lista de products
+	- GET /products/12- Devuelve un producto específico
+	- POST /products- Crea un nuevo product
+	- PUT /products/12- Actualiza el producto #12
+	- PATCH /products/12- Actualiza parcialmente el producto #12
+	- DELETE /products/12- Elimina el producto #12
+
+- En cuanto a relaciones se refleja de esta manera:
+
+	- GET /products/12/messages - Devuelve una lista de mensajes para el producto #12
+	- GET /products/12/messages/5 - Devuelve el mensaje #5 para el producto #12
+	- POST /products/12/messages - Crea un nuevo mensaje en el producto #12
+	- PUT /products/12/messages/5 – Actualiza el mensaje #5 para el producto #12
+	- PATCH /products/12/messages/5 - Actualiza parcialmente el mensaje #5 para el producto #12
+	- DELETE /products/12/messages/5 - Borra el mensaje #5 para el producto #12
+
+- En caso de agregar un filtro, especificar el parámetro que se estará enviando, por ejemplo:
+- GET /store/sales/12/from/2021-01-31/to/2021-02-03- Devuelve las ventas de la tienda #12 en el intervalo del 31 de enero de 2021 al 03 de febrero del 2021
+
+Referencias:
+https://api.gov.au/standards/national_api_standards/naming-conventions.html
+https://restfulapi.net/resource-naming/
+https://stoplight.io/blog/rest-api-standards-do-they-even-exist/
 
 #### Extensión del código
 - El cuerpo de una funcion no deberá de sobrepasar las 20 líneas de código.
@@ -323,7 +364,27 @@ const FunctionD(inputValue,imageData)
     - Es más fácil de leer.
     - Es más fácil de reparar.
 
-## ※ Commits.
+## ※ Rutas de navegación.
+- Las rutas de navegación deben estar escritas en kebab-case y nombradas de forma que se pueda identificar el rol y a qué información accederá, por ejemplo:
+inicio/admin/estudiantes/13/materias
+En este caso, el administrador está ingresando a la información de las materias del alumno 13.
 
-- Al igual que las convenciones de nombramiento antes mostradas, los commits deben de ser claros y explicitos respecto a los cambios que se hicieron (desarrollo de un feature nuevo, reparación de un bug, refactor de alguna sección, etc), para de esta manera detectar errores más rápido.
+
+## ※ Git. 
+- En caso de que exista un Sprint activo se deberá crear una rama sobre develop con el nombre del Sprint, al termino del mismo se hará merge de vuelta a develop.
+- Es necesario realizar un Pull Request hacia la rama de Sprint para ingresar código.
+
+#### Git Flow, 
+- Implementación de ramas "Feature" para la realización de una o varias tareas, tres como máximo y deberán estar relacionadas. 
+- La rama "Feature" deberá ser nombrada en base al código de la tarea a realizar, ejemplo: "Feature/BG-236".
+- Implementación de ramas "Bugfix" para realizar correcciones sobre la la rama destino.
+
+#### Commits
+
+- Al igual que las convenciones de nombramiento antes mostradas, los commits deben de ser claros y explicitos respecto a los cambios que se hicieron (desarrollo de un feature nuevo, reparación de un bug, refactor de alguna sección, etc), para de esta manera detectar errores más rápido. 
 - No usar emojis
+
+Más sobre git:
+https://project-awesome.org/arslanbilal/git-cheat-sheet
+Documentación oficial de git: https://git-scm.com/book/en/v2
+
