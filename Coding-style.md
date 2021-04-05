@@ -1,3 +1,5 @@
+# Coding Standard
+
 El aspecto mas importante del estilo es la _consistencia_, si todes nos regimos bajo un mismo estándar de código y todes nos acostumbramos a el, leerlo, manternelo y cambiarlo será mucho más fácil.
 
 Por lo que es importante apegarse de una manera casi _religiosa_ al estilo especificado.
