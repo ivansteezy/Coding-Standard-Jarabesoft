@@ -1,5 +1,6 @@
 # Coding Standard
 
+## Tabla de contenidos
 El aspecto mas importante del estilo es la _consistencia_, si todes nos regimos bajo un mismo estándar de código y todes nos acostumbramos a el, leerlo, manternelo y cambiarlo será mucho más fácil.
 
 Por lo que es importante apegarse de una manera casi _religiosa_ al estilo especificado.
@@ -76,56 +77,90 @@ Por lo que es importante apegarse de una manera casi _religiosa_ al estilo espec
 
 ## **Formato de código.**
 ### ※ Identación
-- La identación del código debe de ser de 4 espacios, Visual Studio y Visual Studio Code por defecto tienen esta identación al tabular el texto, una correcta identacion de código dberia verse tal que:
+- La identación del código debe de ser de 2 espacios, Visual Studio Code por defecto tienen esta identación al tabular el texto, una correcta identacion de código debería verse tal que:
 
 ```javascript
-function DoSomeImportantTask(isImportantValue)
-{
-    if(isImportantValue == true)
-    {
-        for(let step = 0; step < 5; step++)
-        {
-            //...
-        }
+function DoSomeImportantTask(isImportantValue) {
+  if(isImportantValue == true) {
+    for(let step = 0; step < 5; step++) {
+          //...
     }
+  }
 }
 ```
 
-### ※ Cierre y apertura de llaves
-- El cierre y apertura de llaves se puede presentar en dos casos:
-    - Para el caso de apertura y cierre de *scope* se hará un salto de linea antes de abrir una llave.
-    - En el caso de apertura y cierre de *callbacks* ó *funciones flechas o funciones anónimas* se abrirá con una llave en la misma línea en la que se declara.
+### ※ Uso de llaves y paréntesis.
+Existen [muchos estilos del uso llaves e identación](https://en.wikipedia.org/wiki/Indentation_style) en Jarabe esta adoptada el estilo _K&R_ el cual es una variante del _One True Brace Style_, tiene la siguiente forma: 
 
-```javascript
-function GetAge(edad)
-{
-    if(age >= 18)
-    {
-        setInterval(function Grow(){
-            age++;
-        }, 1000)
-    }
+```typescript
+enum Color {
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    Blue,
+    Purple
+};
+
+function MaxValue(number1: number, number2: number) {
+  if (number1 > number2) {
+      return number1;
+  } else {
+      return number2;
+  }
 }
 ```
+La identación es a **dos espacios**, las sentencias _else_ se colocan en la línea que cierra la sentencia _if_, esto con el fin de que al insertar codigo dentro de este bloque, no se rompa la estructura.
 
-### ※ Funciones flecha
-- Unicamente se deberá rodear la lista de parámetros con ```( )``` si existe más de uno:
+## ※ Strings
+### Single quotes vs Double quotes
+Use _single quotes_ `('')` para las _strings_, cada vez más equipos que utilizan Javascript/Typescript (por ejemplo, _Airbnb_, _Angular_ o _Npm_) han adoptado esta práctica, aparte de que es más fácil de escribir (no es necesario precionar shift en la mayoria de los teclados).
 
-Incorrecto | 
--------- | 
 ```javascript
-(x) => x + x;
+// mal :(
+const companyName = "JarabeSoft";
+
+// mal, plantillas de cadena deben tener concatenación o interpolación
+const companyName = `JarabeSoft`;
+
+// bien <3
+const companyName = 'JarabeSoft';
 ```
 
-- Cualquiera de estas opciones es correcta:
+### Template strings
+Cuando se vaya a construir cadenas de manera _no-manual_, use [plantillas literales](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Template_literals)
 
-Correcto | 
--------- |
 ```javascript
-x => x + x;
+// mal :(
+function SayGoodMorning(name) {
+    return 'Good morning, ' + name + '!';
+}
 
-(x, y) => x + y;
+// bien <3
+function SayGoodMorning(name) {
+    return `Good morning, ${name} !';
+}
 ```
+### ※ Funciones anónimas
+- Cuando se utilicen funciones anónimas (por ejemplo, cuando se pasa un _callback_ _inline_), use una función flecha.
+
+```javascript
+// mal :(
+[1, 2, 3].map(function (item) {
+  const res = item + 1;
+  return res * item;
+});
+
+// bien <3
+[1, 2, 3].map((item) => {
+  const res = item + 1;
+  return res * item;
+});
+```
+
+Esto puesto a que con una función flecha se crea una version que se ejecuta in el contexto de _this_, que es lo que muuuy probablemente necesites aparte de que es una sintaxis más conciso.
+
+
 #### Estilos
 - Para identificar una clase CSS esta deberá estar escrita en kebab-case, ejemplo: bg-dark, cursor-pointer, text-center.
 
